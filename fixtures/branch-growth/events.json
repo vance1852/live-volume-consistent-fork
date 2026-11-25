@@ -1,0 +1,108 @@
+{
+  "policy": {
+    "block_size": 8,
+    "physical_blocks": 5,
+    "volumes": {
+      "body": 3,
+      "index": 2
+    },
+    "group": [
+      "body",
+      "index"
+    ],
+    "generation": 2
+  },
+  "objects": {
+    "map.bin": {
+      "bytes": 8,
+      "sha256": "c9e0f26678168ea61c12eeee6b013d81b8da6051781fec6f27f7a502cf7ccdf2"
+    },
+    "idx.bin": {
+      "bytes": 8,
+      "sha256": "29ed299590b3aa650f68c771dc8341e19d645989d4387e3c5a9b9968cd604318"
+    },
+    "new.bin": {
+      "bytes": 8,
+      "sha256": "3cf0ab52c7b3c497729896743c559480591f5a15237a9b1ff001ec32bacd39b8"
+    }
+  },
+  "events": [
+    {
+      "at": 1,
+      "action": "write",
+      "volume": "body",
+      "block": 1,
+      "session": "b2",
+      "checkpoint": 2,
+      "seq": 1,
+      "file": "map.bin"
+    },
+    {
+      "at": 1,
+      "action": "write",
+      "volume": "index",
+      "block": 0,
+      "session": "i2",
+      "checkpoint": 2,
+      "seq": 1,
+      "file": "idx.bin"
+    },
+    {
+      "at": 2,
+      "action": "flush",
+      "volume": "body",
+      "session": "b2",
+      "generation": 2,
+      "through": 1,
+      "checkpoint": 2
+    },
+    {
+      "at": 3,
+      "action": "flush",
+      "volume": "index",
+      "session": "i2",
+      "generation": 2,
+      "through": 1,
+      "checkpoint": 2
+    },
+    {
+      "at": 4,
+      "action": "snapshot",
+      "name": "s2",
+      "checkpoint": 2,
+      "until": 12
+    },
+    {
+      "at": 5,
+      "action": "fork",
+      "snapshot": "s2",
+      "name": "growth"
+    },
+    {
+      "at": 6,
+      "action": "grow",
+      "branch": "growth",
+      "volume": "body",
+      "blocks": 6
+    },
+    {
+      "at": 7,
+      "action": "write",
+      "branch": "growth",
+      "volume": "body",
+      "block": 5,
+      "session": "g2",
+      "checkpoint": 3,
+      "seq": 1,
+      "file": "new.bin"
+    },
+    {
+      "at": 8,
+      "action": "read",
+      "snapshot": "s2",
+      "volume": "body",
+      "block": 5
+    }
+  ],
+  "packets": []
+}

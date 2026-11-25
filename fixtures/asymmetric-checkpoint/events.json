@@ -1,0 +1,218 @@
+{
+  "policy": {
+    "block_size": 8,
+    "physical_blocks": 12,
+    "volumes": {
+      "body": 4,
+      "index": 3
+    },
+    "group": [
+      "body",
+      "index"
+    ],
+    "generation": 4
+  },
+  "objects": {
+    "map6.bin": {
+      "bytes": 8,
+      "sha256": "f990cd995e5392736c7cf15924a019aa66c9abe890bfc3aec2f8bb3936620822"
+    },
+    "map7.bin": {
+      "bytes": 8,
+      "sha256": "7fbc578a79d4a5d8856f1b0ddde60dce901e9b22efcbb8f4a1085a54b43ff79a"
+    },
+    "idx6.bin": {
+      "bytes": 8,
+      "sha256": "7b01c4df76891efa4f62856f160fc4306bc7cc65182fa86d9f9e38005085b53b"
+    },
+    "idx7.bin": {
+      "bytes": 8,
+      "sha256": "39123019679632892b49c25479cb47d5be33a09279b023d3ac412b155b395553"
+    },
+    "patch.bin": {
+      "bytes": 8,
+      "sha256": "0b37e986d134d94d9b184a833cfc32196298b0705512b147996fd67f051d1541"
+    }
+  },
+  "events": [
+    {
+      "at": 0,
+      "action": "start",
+      "volume": "body",
+      "session": "b4",
+      "generation": 4
+    },
+    {
+      "at": 0,
+      "action": "start",
+      "volume": "index",
+      "session": "i4",
+      "generation": 4
+    },
+    {
+      "at": 1,
+      "action": "write",
+      "volume": "body",
+      "block": 0,
+      "session": "b4",
+      "seq": 1,
+      "checkpoint": 6,
+      "file": "map6.bin"
+    },
+    {
+      "at": 2,
+      "action": "write",
+      "volume": "index",
+      "block": 1,
+      "session": "i4",
+      "seq": 1,
+      "checkpoint": 6,
+      "file": "idx6.bin"
+    },
+    {
+      "at": 3,
+      "action": "flush",
+      "volume": "index",
+      "session": "i4",
+      "through": 1,
+      "checkpoint": 6,
+      "generation": 4
+    },
+    {
+      "at": 4,
+      "action": "snapshot",
+      "name": "s6",
+      "checkpoint": 6,
+      "until": 17
+    },
+    {
+      "at": 5,
+      "action": "write",
+      "volume": "index",
+      "block": 1,
+      "session": "i4",
+      "seq": 2,
+      "checkpoint": 7,
+      "file": "idx7.bin"
+    },
+    {
+      "at": 6,
+      "action": "flush",
+      "volume": "body",
+      "session": "b4",
+      "through": 1,
+      "checkpoint": 6,
+      "generation": 4
+    },
+    {
+      "at": 7,
+      "action": "mount",
+      "snapshot": "s6",
+      "handle": "reader"
+    },
+    {
+      "at": 8,
+      "action": "fork",
+      "snapshot": "s6",
+      "name": "trial"
+    },
+    {
+      "at": 9,
+      "action": "drop_snapshot",
+      "snapshot": "s6"
+    },
+    {
+      "at": 10,
+      "action": "punch",
+      "branch": "trial",
+      "volume": "body",
+      "block": 0
+    },
+    {
+      "at": 10,
+      "action": "write",
+      "volume": "body",
+      "block": 0,
+      "session": "b4",
+      "seq": 2,
+      "checkpoint": 7,
+      "file": "map7.bin"
+    },
+    {
+      "at": 11,
+      "action": "power_loss",
+      "volume": "body",
+      "generation": 4
+    },
+    {
+      "at": 12,
+      "action": "start",
+      "volume": "body",
+      "session": "b5",
+      "generation": 5
+    },
+    {
+      "at": 13,
+      "action": "snapshot",
+      "name": "s7",
+      "checkpoint": 7,
+      "until": 19
+    },
+    {
+      "at": 14,
+      "action": "flush",
+      "volume": "body",
+      "session": "b4",
+      "through": 2,
+      "checkpoint": 7,
+      "generation": 4
+    },
+    {
+      "at": 15,
+      "action": "read",
+      "handle": "reader",
+      "volume": "body",
+      "block": 0
+    },
+    {
+      "at": 16,
+      "action": "unmount",
+      "handle": "reader"
+    }
+  ],
+  "packets": [
+    {
+      "method": "PUT",
+      "path": "/volumes/body/blocks/0",
+      "status": 200,
+      "reply": {
+        "state": "queued"
+      },
+      "body": "map6.bin",
+      "drop": false,
+      "lag_ms": 0
+    },
+    {
+      "method": "PUT",
+      "path": "/volumes/index/blocks/1",
+      "status": 200,
+      "reply": {
+        "state": "queued"
+      },
+      "body": "idx6.bin",
+      "drop": false,
+      "lag_ms": 0
+    },
+    {
+      "method": "PUT",
+      "path": "/volumes/index/blocks/1",
+      "status": 200,
+      "reply": {
+        "state": "queued"
+      },
+      "body": "idx7.bin",
+      "drop": false,
+      "lag_ms": 0
+    }
+  ]
+}
